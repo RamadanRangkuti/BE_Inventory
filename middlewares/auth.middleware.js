@@ -1,6 +1,8 @@
 const response = require('../helpers/formResponse')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
+const {JWT_PRIVATE_KEY} = process.env
+//)
 module.exports = {
   authentication:(req,res,next)=>{
     try {
@@ -13,7 +15,7 @@ module.exports = {
       // const decode = jwt.decode(token)
       /*decode berfungsi untuk memverifikasi token kita, jika valid akan di decode
       jika tidak valid masuk ke blok catch*/
-      const decode = jwt.verify(token, 'JWT_PRIVATE_KEY')
+      const decode = jwt.verify(token, JWT_PRIVATE_KEY)
       //menyimpan data dari decode supaya bisa dipakai di authoriztion, pakai req karna di function sama-sama ada req. 
       req.dataUser = decode
       //console.log(decode)
