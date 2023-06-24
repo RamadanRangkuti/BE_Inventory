@@ -3,6 +3,7 @@ const {v4: uuidv4} = require('uuid')
 
 const userModel={
   //filtering
+  //name&email
   get:(req,res)=>{
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM users`, (err,result)=>{

@@ -1,5 +1,6 @@
 const express = require ('express')
 const router = express.Router()
+const {authentication, authorizationOperator} = require ('../../middlewares/auth.middleware')
 
 
 // const authRoute = require('./auth.route')
@@ -13,7 +14,7 @@ router.get('/',(req,res)=>{
 })
 
 router.use('/auth', authRoute)
-router.use('/products', productRoute)
+router.use('/products', authentication, authorizationOperator, productRoute)
 router.use('/users', userRoute)
 router.use('/stock',stockRoute)
 // router.use('/auth', authRoute)

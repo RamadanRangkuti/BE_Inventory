@@ -30,8 +30,9 @@ const userController = {
     const payload = {
       id_user : uuidv4(),
       fullname: req.body.fullname,
-      email: req.body.email,
+      email: req.body.email,//reguler expression email
       password: bycrpt.hashSync(req.body.password, 11),
+      //comparesync
       picture: req.file.filename,
       role: req.body.role
     }

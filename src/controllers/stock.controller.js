@@ -10,9 +10,10 @@ const stockController = {
         id_stock: uuidv4(),
         dates: new Date().toISOString().slice(0, 10),
         product_id: req.body.product_id,
-        type: req.body.type,
+        type: 1,
         user_id: req.body.user_id,
-        note: req.body.note
+        note: req.body.note,
+        qty: req.body.qty
       }
       const idProduct = {
         id:req.body.product_id
@@ -22,7 +23,7 @@ const stockController = {
       //console.log(product.stock)
       const request ={
         id_product: req.body.product_id,
-        stock:product.stock + 100,
+        stock:product.stock + req.body.qty,//req.body.qty
       }
       //console.log(request)
       const insertStock = await stockModel.insert(payload)
@@ -38,19 +39,20 @@ const stockController = {
         id_stock: uuidv4(),
         dates: new Date().toISOString().slice(0, 10),
         product_id: req.body.product_id,
-        type: req.body.type,
+        type: 2,
         user_id: req.body.user_id,
-        note: req.body.note
+        note: req.body.note,
+        qty: req.body.qty 
       }
       //console.log("TES")
       const idProduct = {
         id:req.body.product_id
       }
       const product = await productModel.getDetail(idProduct)
-      console.log(product)
+      //console.log(product)
       const request ={
         id_product: req.body.product_id,
-        stock:product.stock - 100,
+        stock:product.stock - req.body.qty,
       }
       const insertStock = await stockModel.insert(payload)
       const updateStock = await productModel.stockOut(request)
@@ -65,19 +67,21 @@ const stockController = {
         id_stock: uuidv4(),
         dates: new Date().toISOString().slice(0, 10),
         product_id: req.body.product_id,
-        type: req.body.type,
+        type: 3,
         user_id: req.body.user_id,
-        note: req.body.note
+        note: req.body.note,
+        qty: req.body.qty
       }
       const idProduct = {
         id:req.body.product_id
       }
       const product = await productModel.getDetail(idProduct)
-      console.log(product)
+      //console.log(product)
       const request ={
         id_product: req.body.product_id,
-        stock:product.stock,
+        stock: product.stock = req.body.qty,
       }
+      console.log(request.stock)
       const insertStock = await stockModel.insert(payload)
       const updateStock = await productModel.stockEdit(request)
       return response(res, 201, {insertStock, updateStock})

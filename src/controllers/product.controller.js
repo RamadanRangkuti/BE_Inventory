@@ -3,6 +3,9 @@ const {v4: uuidv4} = require('uuid')
 const response = require('../../helpers/formResponse')
 
 const productController = {
+  //pagination all
+  //search name product
+  //sort harga
   get:async(req,res)=>{
     try {
       const result = await productModel.get()
@@ -42,6 +45,10 @@ const productController = {
     }
   },
   update:async(req,res)=>{
+    //delete file when update
+    //get dari productdetail dulu
+    //fs remove file
+    //hapus dulu baru update
     try {
       const payload = {
         id: req.params.id,

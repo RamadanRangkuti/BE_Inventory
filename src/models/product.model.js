@@ -82,7 +82,7 @@ const productModel={
   },
   stockEdit:({id_product, stock})=>{
     return new Promise((resolve, reject) => {
-      db.query(`UPDATE products SET stock=$1 WHERE id_product=$2`, [stock = 100, id_product],(err, result)=>{
+      db.query(`UPDATE products SET stock=$1 WHERE id_product=$2`, [stock, id_product],(err, result)=>{
         if(err){
           reject (err.message)
         }else{

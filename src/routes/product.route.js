@@ -7,12 +7,11 @@ const {authentication, authorizationOperator} = require ('../../middlewares/auth
 const productController = require('../controllers/product.controller')
 
 //operator
-router.get('/', authentication, authorizationOperator, productController.get)
-router.get('/:id', authentication, authorizationOperator, productController.getDetail)
-router.post('/', authentication, authorizationOperator, formUpload.single('picture'),productController.add)
-router.patch('/:id', authentication, authorizationOperator, formUpload.single('picture'),productController.update)
-router.delete('/:id', authentication, authorizationOperator, productController.remove)
-router.put('/:id',productController.stockIn)
+router.get('/', productController.get)
+router.get('/:id', productController.getDetail)
+router.post('/', formUpload.single('picture'),productController.add)
+router.patch('/:id', formUpload.single('picture'),productController.update)
+router.delete('/:id', productController.remove)
 
 
 module.exports = router
