@@ -26,7 +26,7 @@ const authController = {
         return response(res, 500, "Wrong Password!!!")
       }
       delete result.password
-      const token = jwt.sign(result, JWT_PRIVATE_KEY)
+      const token = jwt.sign(result, JWT_PRIVATE_KEY ,{expiresIn:"1d"})
       //console.log(token)
       return response(res,200, { token:`Bearer ${token}`})
     } catch (error) {
