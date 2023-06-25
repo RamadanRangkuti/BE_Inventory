@@ -1,5 +1,6 @@
 const db = require('../../helpers/connection')
 const {v4: uuidv4} = require('uuid')
+const fs = require('fs')
 
 const productModel={
   get:(query)=>{
@@ -50,24 +51,19 @@ const productModel={
       })
     })
   },
-  update:({id,names, price, description, picture, stock})=>{
+  update: ({ id, names, price, description, picture, stock }) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM products WHERE id_product=$1`,[id],
-      (err,result)=>{
-        if(err){
-          reject(err.message)
-        }else{
-          db.query(`UPDATE products SET names=$1,price=$2, description=$3, picture=$4, stock=$ WHERE id_product=$6`,
-          [names||result.rows[0].names, price||result.rows[0].price, description||result.rows[0].description, picture||result.rows[0].picture, stock||result.rows[0].stock, id],
-          (err,result)=>{
-            if(err){
-              reject({message:err.message})
-            }else{
-              resolve({id,names, price, description, picture, stock})
-            }
-          })
+      db.query(
+        'UPDATE products SET names=$1, price=$2, description=$3, picture=$4, stock=$5 WHERE id_product=$6',
+        [names, price, description, picture, stock, id],
+        (err, result) => {
+          if (err) {
+            reject(err.message);
+          } else {
+            resolve({ id, names, price, description, picture, stock })
+          }
         }
-      })
+      )
     })
   },
   stockIn:({id_product, stock})=>{

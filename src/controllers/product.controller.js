@@ -1,6 +1,8 @@
 const productModel = require('../models/product.model')
 const {v4: uuidv4} = require('uuid')
 const response = require('../../helpers/formResponse')
+const fs = require('fs')
+const path = require('path')
 
 const productController = {
   //pagination all
@@ -47,21 +49,29 @@ const productController = {
         return response(res, 500)
     }
   },
-  update:async(req,res)=>{
-    //delete file when update
-    //get dari productdetail dulu
-    //fs remove file
-    //hapus dulu baru update
+  update: async (req, res) => {
     try {
-      const payload = {
-        id: req.params.id,
-        names:req.body.names,
-        price:req.body.price,
-        description:req.body.description,
-        picture:req.file.filename,
-        stock:req.body.stock
-      }
-      const result = await productModel.update(payload)
+      const { id } = req.params
+      const { names, price, description, stock } = req.body
+  
+      const oldProduct = await productModel.getDetail({ id })
+      const picture = req.file ? req.file.filename : oldProduct.picture //ternary operator
+  
+      const updatedNames = names || oldProduct.names
+      const updatedPrice = price || oldProduct.price
+      const updatedDescription = description || oldProduct.description
+      const updatedStock = stock || oldProduct.stock
+  
+      const result = await productModel.update({ id, names: updatedNames, price: updatedPrice, description: updatedDescription, picture, stock: updatedStock })
+  
+      if (oldProduct.picture && oldProduct.picture !== picture) {
+        const filePath = path.join(__dirname, '..', '..', 'public', 'uploads', 'images', oldProduct.picture)
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error('Failed to delete old file:', err)
+          }
+        })
+      }  
       return response(res, 201, result)
     } catch (error) {
       return response(res, 500)

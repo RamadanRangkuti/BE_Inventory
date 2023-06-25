@@ -44,17 +44,45 @@ const userController = {
     return response(res, 500)
    }
   },
-  update:async(req,res)=>{
+  // update:async(req,res)=>{
+  //   try {
+  //     const payload = {
+  //       id : req.params.id,
+  //       fullname: req.body.fullname,
+  //       email: req.body.email,
+  //       password: bycrpt.hashSync(req.body.password, 11),
+  //       picture: req.file.filename,
+  //       role: req.body.role
+  //     }
+  //     const result = await userModel.update(payload)
+  //     return response(res, 201, result)
+  //   } catch (error) {
+  //     return response(res, 500)
+  //   }
+  // },
+  update: async (req, res) => {
     try {
-      const payload = {
-        id : req.params.id,
-        fullname: req.body.fullname,
-        email: req.body.email,
-        password: bycrpt.hashSync(req.body.password, 11),
-        picture: req.file.filename,
-        role: req.body.role
-      }
-      const result = await userModel.update(payload)
+      const { id } = req.params
+      const { fullname, email, password, role } = req.body
+  
+      const oldUser = await userModel.getDetail({id})
+      const picture = req.file ? req.file.filename : oldUser.picture //ternary operator
+  
+      const updatedFullname = fullname || oldUser.fullname
+      const updatedEmail = email || oldUser.email
+      const updatedPassword = password || oldUser.password
+      const updatedRole = role || oldUser.role
+  
+      const result = await userModel.update({ id, fullname: updatedFullname, email: updatedEmail, password: updatedPassword, picture, role: updatedRole })
+  
+      if (oldUser.picture && oldUser.picture !== picture) {
+        const filePath = path.join(__dirname, '..', '..', 'public', 'uploads', 'images', oldUser.picture)
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error('Failed to delete old file:', err)
+          }
+        })
+      }  
       return response(res, 201, result)
     } catch (error) {
       return response(res, 500)

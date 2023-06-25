@@ -47,23 +47,19 @@ const userModel={
       })
     })
   },
-  update:({id,fullname, email, password, picture, role})=>{
+  update: ({ id,fullname, email, password, picture, role }) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM users WHERE id_user=$1`,[id],
-      (err,result)=>{
-        if(err){
-          reject(err.message)
-        }else{
-          db.query(`UPDATE users SET fullname=$1, email=$2, password=$3,picture=$4, role=$5 WHERE id_user=$6`,[fullname||result.rows[0].fullname, email||result.rows[0].email, password||result.rows[0].password, picture||result.rows[0].picture, role||result.rows[0].role, id],
-          (err,result)=>{
-            if(err){
-              reject({message:err.message})
-            }else{
-              resolve({id,fullname, email, password, picture, role})
-            }
-          })
+      db.query(
+        `UPDATE users SET fullname=$1, email=$2, password=$3,picture=$4, role=$5 WHERE id_user=$6`,
+        [fullname, email, password, picture, role, id],
+        (err, result) => {
+          if (err) {
+            reject(err.message);
+          } else {
+            resolve({ id, names, price, description, picture, stock })
+          }
         }
-      })
+      )
     })
   },
   remove:({id})=>{
