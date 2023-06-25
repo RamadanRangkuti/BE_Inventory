@@ -27,7 +27,7 @@ const authController = {
       }
       delete result.password
       const token = jwt.sign(result, JWT_PRIVATE_KEY)
-      console.log(token)
+      //console.log(token)
       return response(res,200, { token:`Bearer ${token}`})
     } catch (error) {
       console.error('Error saat melakukan login:', error);
