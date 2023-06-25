@@ -6,9 +6,6 @@ const storage = multer.diskStorage({
     cb(null, 'public/uploads/images/')
   },
   filename: function (req, file, cb) {
-    // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    // cb(null, file.fieldname + '-' + uniqueSuffix)
-    //verifikasi file .png / jpg and size max 1 mb
     cb(null, `${new Date().getTime()}-${file.originalname}`)
   }
 })
@@ -24,7 +21,7 @@ const formUpload = multer({
     }
   },
   limits: {
-    fileSize: 1048576 * 10, // 10mb
+    fileSize: 1048576 * 10,  // 10mb
   }
  })
 
