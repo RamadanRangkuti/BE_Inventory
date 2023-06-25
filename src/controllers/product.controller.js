@@ -8,12 +8,15 @@ const productController = {
   //sort harga
   get:async(req,res)=>{
     try {
-      const result = await productModel.get()
+      const { search, sortField, sortBy, page, limit } = req.query;
+      const query = { search, sortField, sortBy, page, limit };
+      const result = await productModel.get(query)
       return response(res, 200, result)
     } catch (error) {
-      return response(res, 500)
+      return response(res, 500, error.message)
     }
   },
+
   getDetail:async(req,res)=>{
     try {
       const payload = {id : req.params.id}

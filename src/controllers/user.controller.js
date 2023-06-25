@@ -6,7 +6,9 @@ const bycrpt = require('bcrypt')
 const userController = {
   get:async(req,res)=>{
     try {
-      const result = await userModel.get()
+      const { search, sortField, sortBy, page, limit } = req.query;
+      const query = { search, sortField, sortBy, page, limit };
+      const result = await productModel.get(query)
       return response(res, 200, result)
     } catch (error) {
       return response(res, 500)

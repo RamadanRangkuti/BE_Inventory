@@ -2,10 +2,22 @@ const db = require('../../helpers/connection')
 const {v4: uuidv4} = require('uuid')
 
 const productModel={
-  //-filtering
-  get:(req,res)=>{
+  get:(query)=>{
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM products`, (err,result)=>{
+      const { search, sortField, sortBy, page, limit } = query;
+      let queryString = 'SELECT * FROM products';
+      if (search) {
+        queryString += ` WHERE names ILIKE '%${search}%'`;
+      }
+      if (sortField && sortBy) {
+        queryString += ` ORDER BY ${sortField} ${sortBy}`;
+      }
+      if (page && limit) {
+        //const offset = (page - 1) * limit;
+        //offset itu skip. misal mau nampailkan 5 data dari data ke 3 sampai 7 artinya kita skip(offset) 2 data. data 1 dan ke 2
+        queryString += ` LIMIT ${limit} OFFSET ${page * limit - limit}`;
+      }
+      db.query(queryString, (err,result)=>{
         if(err){
           reject(err.message)
         }else{
