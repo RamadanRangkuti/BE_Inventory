@@ -1,18 +1,18 @@
-const { urlencoded,json } = require('express')
-const {v4: uuidv4} = require('uuid')
+const { urlencoded, json } = require('express')
+// const { v4: uuidv4 } = require('uuid')
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const router = require('./src/routes/index')
 
-const db = require('./helpers/connection')
+// const db = require('./helpers/connection')
 
-//menerima application/www.form-encoded
-app.use(urlencoded({extended:true}))
-//menerima json
+// menerima application/www.form-encoded
+app.use(urlencoded({ extended: true }))
+// menerima json
 app.use(json())
-app.use('/api/v1/',router)
-//access backend
+app.use('/api/v1/', router)
+// access backend
 app.use(cors())
 // app.use(cors({
 //   origin : ['ramadanrangkuti.com']
@@ -95,10 +95,10 @@ app.use(cors())
 //   })
 // })
 
-app.listen(5000,()=>{
-  console.log("backend successfully running on port 5000")
+app.listen(5000, () => {
+  console.log('backend successfully running on port 5000')
 })
 
-app.get('*',(req,res)=>{
-  return res.send({status:404,message:"not found"})
+app.get('*', (req, res) => {
+  return res.send({ status: 404, message: 'not found' })
 })

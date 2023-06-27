@@ -1,37 +1,37 @@
-const response = (res,status,result=null) =>{
-  let desc = ""
-  switch(status){
+const response = (res, status, result = null) => {
+  let desc = ''
+  switch (status) {
     case 200:
-      desc = "OK"
-      break;
+      desc = 'OK'
+      break
     case 201:
-      desc = "Created"
-      break;
+      desc = 'Created'
+      break
     case 400:
-      desc = "Bad Request"
-      break;
+      desc = 'Bad Request'
+      break
     case 404:
-      desc = "Not Found"
-      break;
+      desc = 'Not Found'
+      break
     case 401:
-      desc = "Unautorized"
-      break;
+      desc = 'Unautorized'
+      break
     case 500:
-      desc = "Internal Server Error"
-      break;
+      desc = 'Internal Server Error'
+      break
     case 501:
-      desc = "Bad Gateway"
-      break;
+      desc = 'Bad Gateway'
+      break
     case 303:
-      desc = "Not Modified"
-      break;
+      desc = 'Not Modified'
+      break
     default:
-      desc= ""
+      desc = ''
   }
   const results = {
-    status: status,
+    status,
     description: desc,
-    result: result
+    result
   }
   res.status(status).send(results)
 }
