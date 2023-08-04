@@ -35,6 +35,11 @@ const productController = {
   },
   add: async (req, res) => {
     try {
+      console.log('Req File:', req.file)
+      console.log('Req Body:', req.body)
+      if (!req.file) {
+        return response(res, 400, 'Please upload a picture')
+      }
       const payload = {
         id_product: uuidv4(),
         names: req.body.names,

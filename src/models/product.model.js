@@ -40,12 +40,12 @@ const productModel = {
   },
   add: ({ id_product, names, price, description, picture, stock }) => {
     return new Promise((resolve, reject) => {
-      db.query('INSERT INTO products(id_product, names, price, description, picture, stock) VALUES ($1, $2, $3, $4, $5, $6)', [id_product, names, price, description, picture, stock],
+      db.query('INSERT INTO products(id_product, names, price, description, picture, stock) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [id_product, names, price, description, picture, stock],
         (err, result) => {
           if (err) {
             reject(err.message)
           } else {
-            resolve({ id_product, names, price, description, picture, stock })
+            resolve(result.rows[0])
           }
         })
     })

@@ -5,6 +5,8 @@ const app = express()
 const cors = require('cors')
 const router = require('./src/routes/index')
 
+app.use(cors())
+app.use(express.static('public'))
 // const db = require('./helpers/connection')
 
 // menerima application/www.form-encoded
@@ -13,7 +15,8 @@ app.use(urlencoded({ extended: true }))
 app.use(json())
 app.use('/api/v1/', router)
 // access backend
-app.use(cors())
+// app.use(cors())
+// app.use(express.static('public'))
 // app.use(cors({
 //   origin : ['ramadanrangkuti.com']
 // }))

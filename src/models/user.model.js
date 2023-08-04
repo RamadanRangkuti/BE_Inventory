@@ -5,7 +5,7 @@ const userModel = {
   get: (query) => {
     return new Promise((resolve, reject) => {
       const { search, sortField, sortBy, page, limit } = query
-      let queryString = 'SELECT * FROM products'
+      let queryString = 'SELECT * FROM users'
       if (search) {
         queryString += ` WHERE names ILIKE '%${search}%'`
       }

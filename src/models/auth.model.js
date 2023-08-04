@@ -4,7 +4,7 @@ const authModel = {
     // console.log('Email:', email)
     // console.log('Password:', password)
     return new Promise((resolve, reject) => {
-      db.query('SELECT email, password, role FROM users WHERE email=$1', [email], (err, result) => {
+      db.query('SELECT * FROM users WHERE email=$1', [email], (err, result) => {
         if (err) {
           reject(err.message)
         } else {
