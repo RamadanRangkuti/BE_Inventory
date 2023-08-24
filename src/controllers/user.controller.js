@@ -58,7 +58,7 @@ const userController = {
       const updatedPassword = password || oldUser.password
       const updatedRole = role || oldUser.role
 
-      const result = await userModel.update({ id, fullname: updatedFullname, email: updatedEmail, password: updatedPassword, picture, role: updatedRole })
+      const result = await userModel.update({ id, fullname: updatedFullname, email: updatedEmail, password: bycrpt.hashSync(updatedPassword, 11), picture, role: updatedRole })
 
       if (oldUser.picture && oldUser.picture !== picture) {
         const filePath = path.join(__dirname, '..', '..', 'public', 'uploads', 'images', oldUser.picture)

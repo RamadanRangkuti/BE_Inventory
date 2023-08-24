@@ -50,7 +50,7 @@ const userModel = {
   update: ({ id, fullname, email, password, picture, role }) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'UPDATE users SET fullname=$1, email=$2, password=$3,picture=$4, role=$5 WHERE id_user=$6',
+        'UPDATE users SET fullname=$1, email=$2, password=$3, picture=$4, role=$5 WHERE id_user=$6',
         [fullname, email, password, picture, role, id],
         (err, result) => {
           if (err) {

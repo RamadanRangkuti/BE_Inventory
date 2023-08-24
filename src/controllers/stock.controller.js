@@ -4,6 +4,14 @@ const { v4: uuidv4 } = require('uuid')
 const productModel = require('../models/product.model')
 
 const stockController = {
+  get: async (req, res) => {
+    try {
+      const result = await stockModel.get()
+      return response(res, 200, result)
+    } catch (error) {
+      return response(res, 500, error.message)
+    }
+  },
   stockIn: async (req, res) => {
     try {
       const payload = {
@@ -23,7 +31,7 @@ const stockController = {
       // console.log(product.stock)
       const request = {
         id_product: req.body.product_id,
-        stock: product.stock + req.body.qty// req.body.qty
+        stock: product.stock + parseFloat(req.body.qty)// req.body.qty
       }
       // console.log(request)
       const insertStock = await stockModel.insert(payload)
@@ -52,7 +60,7 @@ const stockController = {
       // console.log(product)
       const request = {
         id_product: req.body.product_id,
-        stock: product.stock - req.body.qty
+        stock: product.stock - parseFloat(req.body.qty)
       }
       const insertStock = await stockModel.insert(payload)
       const updateStock = await productModel.stockOut(request)

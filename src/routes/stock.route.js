@@ -6,7 +6,7 @@ const { authentication, authorizationOperator } = require('../../middlewares/aut
 // import controller
 const stockController = require('../controllers/stock.controller')
 
-// router.get('/',userController.get)
+router.get('/', authentication, authorizationOperator, stockController.get)
 router.post('/in', authentication, authorizationOperator, stockController.stockIn)
 router.post('/out', authentication, authorizationOperator, stockController.stockOut)
 router.post('/edit', authentication, authorizationOperator, stockController.stockEdit)
