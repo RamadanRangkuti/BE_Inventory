@@ -1,15 +1,14 @@
 const { Client } = require('pg')
-require('dotenv').config()
+require('dotenv').config({ path: '../.env' })
 
 // Des
-const { USER, HOST, DATABASE, PASSWORD, PORT } = process.env
-
+// const { USER, HOST, DATABASE, PORT } = process.env
 const db = new Client({
-  user: USER,
-  host: HOST,
-  database: DATABASE,
-  password: PASSWORD,
-  port: PORT
+  user: process.env.USER,
+  host: process.env.HOST,
+  database: process.env.DATABASE,
+  password: process.env.PASSWORD,
+  port: process.env.DBPORT
 })
 db.connect((err) => {
   if (err) {
