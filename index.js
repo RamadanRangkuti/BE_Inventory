@@ -99,9 +99,10 @@ app.use('/api/v1/', router)
 //   })
 // })
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.SERVER_PORT || 5000
+// console.log(process.env.SERVER_PORT)
 app.listen(PORT, () => {
-  console.log('backend successfully running on port 5000')
+  console.log(`backend successfully running on port ${PORT}`)
 })
 
 app.get('*', (req, res) => {
