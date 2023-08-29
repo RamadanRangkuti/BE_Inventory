@@ -1,5 +1,4 @@
 const db = require('../../helpers/connection')
-const { v4: uuidv4 } = require('uuid')
 
 const userModel = {
   get: (query) => {
@@ -35,14 +34,14 @@ const userModel = {
       })
     })
   },
-  add: ({ fullname, email, password, picture, role }) => {
+  add: ({ id_user, fullname, email, password, picture, role }) => {
     return new Promise((resolve, reject) => {
-      db.query('INSERT INTO users(id_user, fullname, email, password, picture, role) VALUES ($1, $2, $3, $4, $5, $6)', [uuidv4(), fullname, email, password, picture, role],
+      db.query('INSERT INTO users(id_user, fullname, email, password, picture, role) VALUES ($1, $2, $3, $4, $5, $6)', [id_user, fullname, email, password, picture, role],
         (err, result) => {
           if (err) {
             reject(err.message)
           } else {
-            resolve({ fullname, email, password, picture, role })
+            resolve({ id_user, fullname, email, password, picture, role })
           }
         })
     })
