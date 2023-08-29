@@ -34,13 +34,16 @@ const userModel = {
       })
     })
   },
+  // eslint-disable-next-line camelcase
   add: ({ id_user, fullname, email, password, picture, role }) => {
     return new Promise((resolve, reject) => {
+      // eslint-disable-next-line camelcase
       db.query('INSERT INTO users(id_user, fullname, email, password, picture, role) VALUES ($1, $2, $3, $4, $5, $6)', [id_user, fullname, email, password, picture, role],
         (err, result) => {
           if (err) {
             reject(err.message)
           } else {
+            // eslint-disable-next-line camelcase
             resolve({ id_user, fullname, email, password, picture, role })
           }
         })
