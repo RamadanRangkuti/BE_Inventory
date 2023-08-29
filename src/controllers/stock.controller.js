@@ -31,7 +31,7 @@ const stockController = {
       // console.log(product.stock)
       const request = {
         id_product: req.body.product_id,
-        stock: product.stock + parseFloat(req.body.qty)// req.body.qty
+        stock: parseInt(product.stock) + parseInt(req.body.qty)// req.body.qty
       }
       // console.log(request)
       const insertStock = await stockModel.insert(payload)
