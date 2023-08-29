@@ -60,7 +60,7 @@ const stockController = {
       // console.log(product)
       const request = {
         id_product: req.body.product_id,
-        stock: product.stock - parseFloat(req.body.qty)
+        stock: parseInt(product.stock) - parseInt(req.body.qty)
       }
       const insertStock = await stockModel.insert(payload)
       const updateStock = await productModel.stockOut(request)
