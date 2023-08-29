@@ -9,7 +9,7 @@ const userController = require('../controllers/user.controller')
 // admin
 router.get('/', authentication, authorizationAdmin, userController.get)
 router.get('/:id', authentication, authorizationAdmin, userController.getDetail)
-router.post('/', formUpload.single('picture'), userController.add)
+router.post('/', authentication, authorizationAdmin, formUpload.single('picture'), userController.add)
 router.patch('/:id', authentication, authorizationAdmin, formUpload.single('picture'), userController.update)
 router.delete('/:id', authentication, authorizationAdmin, userController.remove)
 
